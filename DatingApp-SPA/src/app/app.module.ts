@@ -16,7 +16,7 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MemberListComponent } from './members/member-list/member-list.component';
-import { MessageComponent } from './message/message.component';
+import { MessagesComponent } from './messages/messages.component';
 import { ListsComponent } from './lists/lists.component';
 import { RouterModule } from '@angular/router';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
@@ -34,6 +34,8 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { TimeagoModule } from 'ngx-timeago';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { ListResolver } from './_resolvers/lists.resolver';
+import { MessagesResolver } from './_resolvers/messages.resolver';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 
 
 
@@ -55,12 +57,13 @@ export class CustomHammerConfig extends HammerGestureConfig {
       HomeComponent,
       RegisterComponent,
       MemberListComponent,
-      MessageComponent,
+      MessagesComponent,
       ListsComponent,
       MemberCardComponent,
       MemberDetailComponent,
       MemberEditComponent,
-      PhotoEditorComponent
+      PhotoEditorComponent,
+      MemberMessagesComponent
    ],
    imports: [
       BrowserModule,
@@ -95,6 +98,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
       MemberEditResolver,
       PreventUnsavedChanges,
       ListResolver,
+      MessagesResolver,
       { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
    ],
    bootstrap: [

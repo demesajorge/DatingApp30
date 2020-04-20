@@ -12,7 +12,7 @@ namespace DatingApp.API.Models
         public byte[] PasswordSalt { get; set; }
         public string Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public string KnowAs { get; set; }
+        public string KnownAs { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
         public string Introduction { get; set; }
@@ -23,6 +23,9 @@ namespace DatingApp.API.Models
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Like> Likers { get; set; }
         public ICollection<Like> Likees { get; set; }
+        public ICollection<Message> MessagesSent { get; set; }
+        public ICollection<Message> MessagesRecived { get; set; }
+
         
 }
 }

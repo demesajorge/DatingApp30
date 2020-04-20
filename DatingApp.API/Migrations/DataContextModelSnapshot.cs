@@ -31,7 +31,46 @@ namespace DatingApp.API.Migrations
                     b.ToTable("Likes");
                 });
 
-            modelBuilder.Entity("DatingApp.API.Modules.Photo", b =>
+            modelBuilder.Entity("DatingApp.API.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DateRead")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("MessageSent")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("RecipientDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("SenderDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -62,7 +101,7 @@ namespace DatingApp.API.Migrations
                     b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("DatingApp.API.Modules.User", b =>
+            modelBuilder.Entity("DatingApp.API.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,7 +128,7 @@ namespace DatingApp.API.Migrations
                     b.Property<string>("Introduction")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("KnowAs")
+                    b.Property<string>("KnownAs")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("LastActive")
@@ -112,7 +151,7 @@ namespace DatingApp.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DatingApp.API.Modules.Value", b =>
+            modelBuilder.Entity("DatingApp.API.Models.Value", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,22 +167,37 @@ namespace DatingApp.API.Migrations
 
             modelBuilder.Entity("DatingApp.API.Models.Like", b =>
                 {
-                    b.HasOne("DatingApp.API.Modules.User", "Likee")
+                    b.HasOne("DatingApp.API.Models.User", "Likee")
                         .WithMany("Likers")
                         .HasForeignKey("LikeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DatingApp.API.Modules.User", "Liker")
+                    b.HasOne("DatingApp.API.Models.User", "Liker")
                         .WithMany("Likees")
                         .HasForeignKey("LikerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DatingApp.API.Modules.Photo", b =>
+            modelBuilder.Entity("DatingApp.API.Models.Message", b =>
                 {
-                    b.HasOne("DatingApp.API.Modules.User", "User")
+                    b.HasOne("DatingApp.API.Models.User", "Recipient")
+                        .WithMany("MessagesRecived")
+                        .HasForeignKey("RecipientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DatingApp.API.Models.User", "Sender")
+                        .WithMany("MessagesSent")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DatingApp.API.Models.Photo", b =>
+                {
+                    b.HasOne("DatingApp.API.Models.User", "User")
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
